@@ -1,6 +1,7 @@
 package com.xandao.motivation.views
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -18,10 +19,12 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mSecurity = SecurityPreferences(this)
         buttonSave.setOnClickListener(this)
         verifyUserName()
+
+        buttonSave.visibility = View.GONE
     }
 
     override fun onClick(v: View) {
@@ -42,10 +45,11 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun verifyUserName(){
+    private fun verifyUserName() {
         val userName = mSecurity.getStoredString(MotivationConstants.KEY.PERSON_NAME)
-        if(userName != "") startActivity(Intent(this, MainActivity::class.java))
+        if (userName != "") startActivity(Intent(this, MainActivity::class.java))
         editName.setText(userName)
     }
 
 }
+
